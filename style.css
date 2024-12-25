@@ -1,0 +1,217 @@
+@import url(/01-Entrainement/css/reset.css);
+
+html, body{
+    font-size: 16px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url(img_hexagones.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.title__h1{
+    font-size: 2rem;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.sudoku__grid{
+    width: 400px;
+    margin: 0 auto;
+    gap: 0;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    margin-bottom: 2rem;
+
+}
+
+.sudoku__cell{
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid gray;
+    box-sizing: border-box;
+   
+}
+
+.sudoku__cell.invalid {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+  }
+  
+
+.sudoku__cell:nth-child(3n){
+    border-right: 2px solid black;
+/* bordure a chaque 3ème cellules */
+
+}
+
+.sudoku__cell:nth-child(1),
+.sudoku__cell:nth-child(10),
+.sudoku__cell:nth-child(19),
+.sudoku__cell:nth-child(28),
+.sudoku__cell:nth-child(37),
+.sudoku__cell:nth-child(46),
+.sudoku__cell:nth-child(55),
+.sudoku__cell:nth-child(64),
+.sudoku__cell:nth-child(73){
+    border-left: 2px solid black;
+/* bordure au debut de chaque bloc 3x3 sur la gauche*/
+
+}
+
+.sudoku__cell:nth-child(n + 19):nth-child(-n + 27),
+.sudoku__cell:nth-child(n + 46):nth-child(-n + 54),
+.sudoku__cell:nth-child(n + 73):nth-child(-n + 81){
+    border-bottom: 2px solid black;
+
+}
+
+.sudoku__cell:nth-child(-n + 9){
+    border-top: 2px solid black;
+}
+
+
+#validationMessage {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+
+  #feedbackMessage {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: #007BFF; /* Bleu pour indiquer un état actif */
+    transition: opacity 0.5s ease;
+  }
+
+  .feedbackIcon {
+    display: inline-block;
+    margin-right: 0.5rem;
+    font-size: 1.5rem;
+    vertical-align: middle;
+  }
+
+  #difficultySelector {
+    text-align: center;
+    margin: 1rem 0;
+  }
+  
+  .difficulty {
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .difficulty:hover {
+    background-color: #0056b3;
+  }
+
+  button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  button:active {
+    background-color: #003f7f;
+    transform: scale(1);
+  }
+  
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  }
+  
+   /* Style pour les cellules pendant le chargement */
+   .sudoku__cell.loading {
+    background-color: #f0f0f0;
+    animation: blink 1s infinite;
+  }
+
+  #generateGrid {
+    background-color: #28a745; /* Vert pour Nouvelle Grille */
+  }
+  
+  #generateGrid:hover {
+    background-color: #218838;
+  }
+  
+  #generateGrid:active {
+    background-color: #1e7e34;
+  }
+  
+  #validateGrid {
+    background-color: #dc3545; /* Rouge pour Valider */
+  }
+  
+  #validateGrid:hover {
+    background-color: #c82333;
+  }
+  
+  #validateGrid:active {
+    background-color: #bd2130;
+  }
+  
+  
+
+  
+  
+  
+
+/* Animation de clignotement */
+@keyframes blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+ 
+
+  @media (max-width: 768px) {
+    .sudoku__grid {
+      max-width: 90%; /* Réduire la largeur pour qu'elle s'adapte mieux */
+    }
+  
+    .sudoku__cell {
+      font-size: calc(0.8rem + 0.5vw); /* Ajuste encore plus sur mobile */
+    }
+  
+    button {
+      font-size: 0.8rem; /* Réduit la taille des boutons */
+      padding: 0.4rem 0.8rem;
+    }
+  }
+  
